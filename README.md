@@ -46,7 +46,7 @@ To set up your environment, please see the requirements listed in [requirements.
 
 
 ## Downloading feed files
-The feed files can be as big as several gigabytes. Feed API supports downloading such big feed files in chunks. Chunk size is 100 MB in production environment and is 10 MB in soundbox environment.
+The feed files can be as big as several gigabytes. Feed API supports downloading such big feed files in chunks. Chunk size is 100 MB in production environment and is 10 MB in sandbox environment.
 
 The SDK abstracts the complexity involved in calculating the request header '__range__' based on the response header '__content-range__' and downloads and appends all the chunks until the whole feed file is downloaded.
 
@@ -57,7 +57,7 @@ To download a feed file in production which is -
 instantiate a Feed object and call get() function
 
 ```
-feed_obj = Feed(feed_type='item', feed_scope='ALL_ACTIVE', category_id='220', 
+feed_obj = Feed(feed_type='item', feed_scope='ALL_ACTIVE', category_id='220',
 			       marketplace_id='EBAY_US', token=<TOKEN>, environment='PRODUCTION')
 result_code, api_status_code, file_path = feed_obj.get()
 
@@ -69,10 +69,10 @@ The __filePath__ denotes the location where the file was downloaded.
 The default download location is ~/Desktop/feed-sdk directory. If the directory does not exist, it will be created.
 The download location can be changed by specifying the optional 'download_location' argument when instantiating Feed.
 The download location should point to a directory. If the directory does not exist, it will be created.
-For example, to download to the location __/tmp/feed__ - 
+For example, to download to the location __/tmp/feed__ -
 
 ```
-feed_obj = Feed(feed_type='item', feed_scope='ALL_ACTIVE', category_id='220', 
+feed_obj = Feed(feed_type='item', feed_scope='ALL_ACTIVE', category_id='220',
                                marketplace_id='EBAY_US', token=<TOKEN>, environment='PRODUCTION',
 			       download_location='/tmp/feed')
 ```
@@ -94,9 +94,9 @@ The SDK provides the capability to filter the feed files based on :-
 
 On successful completion of a filter operation, a new __filtered__ file is created in the same directory as the feed file's.
 
-To filter a feed file on leaf category IDs create an object of FeedFilterRequest and call filter() function - 
+To filter a feed file on leaf category IDs create an object of FeedFilterRequest and call filter() function -
 ```
-feed_filter_obj = FeedFilterRequest(input_fila_path=<absolute path to the feed file>, 
+feed_filter_obj = FeedFilterRequest(input_fila_path=<absolute path to the feed file>,
                                     leaf_category_ids=<list of leaf category IDs>)
 file_path = feed_filter_obj.filter()
 
@@ -120,7 +120,7 @@ To filter on leaf category IDs and seller user names for listings in the price r
 
 ```
 feed_filter_obj = FeedFilterRequest(input_fila_path=<absolute path to the feed file>,
-                                    leaf_category_ids=<list of leaf category IDs>, 
+                                    leaf_category_ids=<list of leaf category IDs>,
 				    seller_names=<list of seller names>,
                                     price_lower_limit=1, price_upper_limit=100)
 file_path = feed_filter_obj.filter()
@@ -131,7 +131,7 @@ To filter on item location countries for listings that have more than 10 items a
 
 ```
 feed_filter_obj = FeedFilterRequest(input_fila_path=<absolute path to the feed file>,
-                                    item_location_countries=<list of item location countries>, 
+                                    item_location_countries=<list of item location countries>,
                                     any_query='AvailabilityThresholdType=\'MORE_THAN\' AND AvailabilityThreshold=10')
 file_path = feed_filter_obj.filter()
 
@@ -141,7 +141,7 @@ file_path = feed_filter_obj.filter()
 When filter function is called, feed data is loaded into a sqlite DB.
 If keep_db=True argument is passed to filter function, the sqlite db file is kept in the current directory with name sqlite_feed_sdk.db, otherwise it will be deleted after the program execution.
 
-By default all the columns except Title, ImageUrl, and AdditionalImageUrls are processed. This behaviour can be changed by passing column_name_list argument to filter function and changing IGNORE_COLUMNS set in feed_filter.py. 
+By default all the columns except Title, ImageUrl, and AdditionalImageUrls are processed. This behaviour can be changed by passing column_name_list argument to filter function and changing IGNORE_COLUMNS set in feed_filter.py.
 
 ---
 ### Schemas
@@ -159,7 +159,7 @@ An instance of GetFeedResponse named tuple is returned from the feed_obj.get() f
 
 ```
 
-| Field name | Description 
+| Field name | Description
 |---|---|
 | status_code | int: 0 indicates a successful response. Any non zero value indicates an error
 | message | String: Detailed information on the status
@@ -167,7 +167,7 @@ An instance of GetFeedResponse named tuple is returned from the feed_obj.get() f
 | errors | List: Detailed error information
 
 
-### Response 
+### Response
 
 An instance of Response named tuple is returned from feed_filter_object.filter() function.
 
@@ -177,7 +177,7 @@ An instance of Response named tuple is returned from feed_filter_object.filter()
   String file_path
   List applied_filters
 ```
-| Field name | Description 
+| Field name | Description
 |---|---|
 | status_code | int: 0 indicates a successful response. Any non zero value indicates an error
 | message | String: Detailed information on the status
@@ -326,7 +326,7 @@ The structure of the config file
   ]
 }
 ```
-An example of using the SDK through a config file is located at 
+An example of using the SDK through a config file is located at
 
 [Example config file - 1](https://github.com/eBay/FeedSDK-Python/blob/master/sample-config/config-file-download)
 
@@ -359,7 +359,7 @@ All the examples are located [__here__](https://github.com/eBay/FeedSDK-Python/t
 
 
 ---
-## Important notes 
+## Important notes
 
 * Ensure there is enough storage for feed files.
 * Ensure that the file storage directories have appropriate write permissions.
